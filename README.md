@@ -33,8 +33,9 @@ Modify the 'Sia Theme' to add the following functionality:
 * Final Output:
     * "Hello World" Should print twice. 1st via Short Code and 2nd via Widget Inclusion
 
-## Instructions
-* Please use OOP where necessary
+## Instructions (For All Assignments)
+* Please use OOP where necessary. 
+* Hint: use classes, implements, namespace etc.
 * Please use best security & sanitization practices where necessary
 * Please use Git workflow best practices 
 * Submit the url to your forked repo with the completed work for review (please ensure that the repo is public)

@@ -3,13 +3,18 @@
  * The main Functions File.
  *
  */
-require_once get_template_directory() . '/cpt-gallery.php';
-
-add_action( 'pre_get_posts', 'add_cpt_gallery_to_home' );
-
-function add_cpt_gallery_to_home( $query ) {
-
-    if( $query->is_main_query() && $query->is_home() ) {
-        $query->set( 'post_type', array( 'post', 'gallery') );
-    }
+/**
+ * Register widget areas.
+ */
+function siatheme_widgets_init() {
+    register_sidebar( array(
+        'name'          => __( 'Primary Sidebar' ),
+        'id'            => 'sidebar-1',
+        'description'   => __( 'Widgets in this area will be shown on all posts and pages.' ),
+        'before_widget' => '<section id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</section>',
+        'before_title'  => '<h2 class="widget-title">',
+        'after_title'   => '</h2>',
+    ) );
 }
+add_action( 'widgets_init', 'siatheme_widgets_init' );

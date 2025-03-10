@@ -16,8 +16,32 @@ function siatheme_widgets_init() {
         'before_title'  => '<h2 class="widget-title">',
         'after_title'   => '</h2>',
     ) );
+    register_sidebar(array(
+        'name'          => __('Post Widget Area'),
+        'id'            => 'post-widget-area',
+        'description'   => __('Widgets in this area will be shown on single posts.'),
+        'before_widget' => '<section id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</section>',
+        'before_title'  => '<h2 class="widget-title">',
+        'after_title'   => '</h2>',
+    ));
 }
 add_action( 'widgets_init', 'siatheme_widgets_init' );
+
+function display_post_widget_area($content) {
+    if (is_single()) {
+        ob_start();
+
+        dynamic_sidebar('post-widget-area');
+
+        $widget_area_content = ob_get_clean();
+
+        $content .= $widget_area_content;
+    }
+
+    return $content;
+}
+add_filter('the_content', 'display_post_widget_area');
 
 function create_posttype() {
 
@@ -110,3 +134,14 @@ function create_posttype() {
     add_action( 'widgets_init', function(){
         register_widget( 'HelloWorld' );
     });
+
+    function helloworld_shortcode($atts) {
+        $atts = shortcode_atts(array(), $atts, 'helloworld');
+    
+        $output = '<div class="helloworld-widget">';
+        $output .= '<h3>Hello World</h3>';
+        $output .= '</div>';
+    
+        return $output;
+    }
+    add_shortcode('helloworld', 'helloworld_shortcode');

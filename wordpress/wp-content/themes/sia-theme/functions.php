@@ -65,6 +65,24 @@ function create_posttype() {
         }
     }
     add_action('save_post', 'save_menus_meta');
+
+    function display_menu($content) {
+        if (is_singular('menus')) {
+            $cuisine = get_post_meta(get_the_ID(), 'cuisine', true);
+            $recipe = get_post_meta(get_the_ID(), 'recipe', true);
+    
+            $custom_fields = '<div class="menu-details">';
+            $custom_fields .= '<h2>Menu Details</h2>';
+            $custom_fields .= '<p><strong>Cuisine:</strong> ' . esc_html($cuisine) . '</p>';
+            $custom_fields .= '<p><strong>Recipe:</strong> ' . esc_html($recipe) . '</p>';
+            $custom_fields .= '</div>';
+
+            $content .= $custom_fields;
+        }
+    
+        return $content;
+    }
+    add_filter('the_content', 'display_menu');
     
     class HelloWorld extends WP_Widget {
         public function __construct() {

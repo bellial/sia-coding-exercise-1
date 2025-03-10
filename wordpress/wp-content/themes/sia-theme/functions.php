@@ -66,3 +66,29 @@ function create_posttype() {
     }
     add_action('save_post', 'save_menus_meta');
     
+    class HelloWorld extends WP_Widget {
+        public function __construct() {
+            $widget_ops = array( 
+                'classname' => 'helloworld',
+                'description' => 'A widget that displays "Hello World"',
+            );
+            parent::__construct( 'helloworld', 'HelloWorld', $widget_ops );
+        }
+    
+        public function widget($args, $instance) {
+            echo $args['before_widget'];
+            echo '<h3>Hello World</h3>';
+            echo $args['after_widget'];
+        }
+    
+        public function form($instance) {
+            echo '<p>No settings for this widget.</p>';
+        }
+    
+        public function update($new_instance, $old_instance) {
+            return $old_instance;
+        }
+    }
+    add_action( 'widgets_init', function(){
+        register_widget( 'HelloWorld' );
+    });
